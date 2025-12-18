@@ -1,3 +1,5 @@
+![Enterprise Management System](docs/images/project-banner.png)
+
 # ☕ Sistema de Gestión Empresarial | Backend Java + Spring Boot
 
 > **API REST profesional con arquitectura escalable, seguridad JWT y documentación completa.**  
