@@ -20,4 +20,6 @@ public interface ProductoService {
     List<ProductoResponse> buscarPorNombre(String nombre);
 
     List<ProductoResponse> obtenerProductosConBajoStock();
+
+    void limpiarTodo();
 }

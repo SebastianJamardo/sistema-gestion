@@ -6,7 +6,6 @@ import com.sebastianjamardo.sistema_gestion.model.entity.Producto;
 import com.sebastianjamardo.sistema_gestion.dto.request.ProductoRequest;
 import com.sebastianjamardo.sistema_gestion.dto.response.ProductoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -63,7 +62,7 @@ public class ProductoServiceImpl implements ProductoService {
     public ProductoResponse obtenerPorId(Long id) {
         Producto producto = repository.findByIdAndActivoTrue(id)
                 .orElseThrow(() -> new IllegalArgumentException(
-                   "Producto con ID " + id + "no encontrado"
+                   "Producto con ID " + id + " no encontrado"
                 ));
 
         return convertirAResponse(producto);
@@ -102,10 +101,8 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public void eliminar(Long id) {
-        Producto producto = repository.findByIdAndActivoTrue(id)
-                .orElseThrow(() -> new IllegalArgumentException(
-                        "Producto con Id " + id + " no encontrado"
-                ));
+        Producto producto = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Producto con Id " + id + " no encontrado"));
 
         producto.setActivo(false);
         repository.save(producto);
@@ -125,6 +122,11 @@ public class ProductoServiceImpl implements ProductoService {
                 .stream()
                 .map(this::convertirAResponse)
                 .toList();
+    }
+
+    @Override
+    public void limpiarTodo() {
+        repository.deleteAll();
     }
 }
 
