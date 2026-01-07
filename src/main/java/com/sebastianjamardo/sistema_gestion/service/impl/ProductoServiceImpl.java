@@ -1,5 +1,7 @@
 package com.sebastianjamardo.sistema_gestion.service.impl;
 
+import com.sebastianjamardo.sistema_gestion.exception.DuplicateResourceException;
+import com.sebastianjamardo.sistema_gestion.exception.ResourceNotFoundException;
 import com.sebastianjamardo.sistema_gestion.service.ProductoService;
 import com.sebastianjamardo.sistema_gestion.repository.ProductoRepository;
 import com.sebastianjamardo.sistema_gestion.model.entity.Producto;
@@ -18,11 +20,9 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public ProductoResponse crear(ProductoRequest request) {
-        // 1. Validar que no exista un producto con ese nombre
+        // Validar que no exista un producto con ese nombre
         if(repository.existsByNombreIgnoreCaseAndActivoTrue(request.getNombre())) {
-            throw new IllegalStateException(
-                    "Ya existe un producto con el nombre: " + request.getNombre()
-            );
+            throw new DuplicateResourceException("Ya existe un producto con el nombre: " + request.getNombre());
         }
 
         // 2. Convertir Request DTO → Entity
@@ -61,7 +61,7 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public ProductoResponse obtenerPorId(Long id) {
         Producto producto = repository.findByIdAndActivoTrue(id)
-                .orElseThrow(() -> new IllegalArgumentException(
+                .orElseThrow(() -> new ResourceNotFoundException(
                    "Producto con ID " + id + " no encontrado"
                 ));
 
@@ -80,7 +80,7 @@ public class ProductoServiceImpl implements ProductoService {
     public ProductoResponse actualizar(Long id, ProductoRequest request) {
         // 1. Verificar que existe
         Producto producto = repository.findByIdAndActivoTrue(id)
-                .orElseThrow(() -> new IllegalArgumentException(
+                .orElseThrow(() -> new ResourceNotFoundException(
                         "Producto con ID " + id + " no encontrado"
                 ));
 

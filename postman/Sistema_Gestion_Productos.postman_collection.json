@@ -53,15 +53,52 @@
 			"name": "03 - Obtener Producto por ID",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/productos/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"productos",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "04 - Actualizar Producto",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Máscara de pestañas Sky High TEI - ACTUALIZADA\",\r\n  \"descripcion\": \"Súper alargamiento y definición\",\r\n  \"precio\": 4000.00,\r\n  \"stock\": 4,\r\n  \"stockMinimo\": 2,\r\n  \"categoria\": \"Máscara de pestañas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/productos/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"productos",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
